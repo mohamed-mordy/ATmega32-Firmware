@@ -4,10 +4,12 @@
  *  Created on: Sep 16, 2022
  *      Author: Mohamed
  */
+
 #define OUTPUT      1
 #define INPUT       0
 
-
+#define DIO_PIN_HIGH    1
+#define DIO_PIN_LOW     0
 
 #define DIO_PORTA   0
 #define DIO_PORTB   1

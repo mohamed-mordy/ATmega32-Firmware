@@ -72,16 +72,16 @@ u8 DIO_getPinValue(u8 portID, u8 pinNo)
     u8 value = 0;
     switch (portID) {
         case 0:
-            value = GET_BIT(PORTA, pinNo);
+            value = GET_BIT(PINA, pinNo);
             break;
         case 1:
-            value = GET_BIT(PORTB, pinNo);
+            value = GET_BIT(PINB, pinNo);
             break;
         case 2:
-            value = GET_BIT(PORTC, pinNo);
+            value = GET_BIT(PINC, pinNo);
             break;
         case 3:
-            value = GET_BIT(PORTD, pinNo);
+            value = GET_BIT(PIND, pinNo);
             break;
     }
     return value;
