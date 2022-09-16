@@ -1,7 +1,7 @@
 # ATmega32 Firmware
 ## Implemented SWCs in MCAL:
-    - PORT Driver
-    - DIO Driver
+    * PORT Driver
+    * DIO Driver
 ## Implemented SWCs in HAL:
-    - LCD Driver
-    - SSD Driver
+    * LCD Driver
+    * SSD Driver
