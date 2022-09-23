@@ -1,0 +1,8 @@
+#ifndef __STEPPER_MOTOR_CONFIG_H__
+#define __STEPPER_MOTOR_CONFIG_H__
+
+
+
+
+
+#endif // __STEPPER_MOTOR_CONFIG_H__

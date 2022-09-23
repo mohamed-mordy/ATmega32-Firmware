@@ -1,0 +1,8 @@
+#ifndef __STEPPER_MOTOR_PRIVATE_H__
+#define __STEPPER_MOTOR_PRIVATE_H__
+
+
+
+
+
+#endif // __STEPPER_MOTOR_PRIVATE_H__
