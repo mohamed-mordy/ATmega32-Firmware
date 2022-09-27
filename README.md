@@ -1,7 +1,9 @@
 # ATmega32 Firmware
 ## Implemented SWCs in MCAL:
-* [PORT Driver](https://github.com/mohamed-mordy/ATmega32-Firmware/tree/main/MCAL/DIO)
-* [DIO Driver](https://github.com/mohamed-mordy/ATmega32-Firmware/tree/main/MCAL/Port)
+* [PORT Driver](https://github.com/mohamed-mordy/ATmega32-Firmware/tree/main/MCAL/Port)
+* [DIO Driver](https://github.com/mohamed-mordy/ATmega32-Firmware/tree/main/MCAL/DIO)
+* [GIE Driver](https://github.com/mohamed-mordy/ATmega32-Firmware/tree/main/MCAL/GIE)
+* [EXTI Driver](https://github.com/mohamed-mordy/ATmega32-Firmware/tree/main/MCAL/EXTI)
 ## Implemented SWCs in HAL:
 * [KEYPAD Driver](https://github.com/mohamed-mordy/ATmega32-Firmware/tree/main/HAL/Keypad)
 * [LCD Driver](https://github.com/mohamed-mordy/ATmega32-Firmware/tree/main/HAL/LCD)
