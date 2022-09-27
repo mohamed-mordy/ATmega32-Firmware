@@ -5,11 +5,20 @@
  *      Author: Mohamed
  */
 
-#define OUTPUT      1
-#define INPUT       0
 
-#define DIO_PIN_HIGH    1
-#define DIO_PIN_LOW     0
+
+#ifndef DIO_INTERFACE_H_
+#define DIO_INTERFACE_H_
+
+
+
+#define DIO_OUTPUT      1
+#define DIO_INPUT       0
+
+#define DIO_HIGH      1
+#define DIO_LOW       0
+
+
 
 #define DIO_PORTA   0
 #define DIO_PORTB   1
@@ -28,11 +37,17 @@
 #define DIO_PIN7     7    
 
 
-void DIO_setPinDirection(u8 portID, u8 pinNo, u8 direction);
-void DIO_setPinValue(u8 portID, u8 pinNo, u8 value);
-u8 DIO_getPinValue(u8 portID, u8 pinNo);
-void DIO_togglePinValue(u8 portID, u8 pinNo);
+void DIO_setPinDirection(u8 u8_portID, u8 u8_pinNo, u8 u8_direction);
+void DIO_setPinValue(u8 u8_portID, u8 u8_pinNo, u8 u8_value);
+u8 DIO_getPinValue(u8 u8_portID, u8 u8_pinNo);
+void DIO_togglePinValue(u8 u8_portID, u8 u8_pinNo);
+void DIO_setPortDirection(u8 u8_portID, u8 u8_direction);
+void DIO_setPortValue(u8 u8_portID, u8 u8_value);
+u8 DIO_getPortValue(u8 u8_portID);
 
-void DIO_setPortDirection(u8 portID, u8 direction);
-void DIO_setPortValue(u8 portID, u8 value);
-u8 DIO_getPortValue(u8 portID);
+
+
+
+
+
+#endif /* DIO_INTERFACE_H_ */
