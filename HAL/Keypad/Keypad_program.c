@@ -6,13 +6,12 @@
  */
 
 
-#include "Std_Types.h"
+#include <Std_Types.h>
 
-#include "DIO_interface.h"
-
-#include "Keypad_interface.h"
+#include <DIO_interface.h>
+#include <Keypad_interface.h>
 #include "Keypad_private.h"
-#include "Keypad_config.h"
+#include <Keypad_config.h>
 
 
 /* Array to store the return value foreach pressed key. */

@@ -6,11 +6,13 @@
  */
 
 
-#include "../DIO_config.h"
-#include "../DIO_interface.h"
-#include "../DIO_private.h"
-#include "../Lib/Bit_Math.h"
-#include "../Lib/Std_Types.h"
+#include <Std_Types.h>
+#include <Bit_Math.h>
+
+#include <DIO_interface.h>
+
+#include "DIO_private.h"
+#include <DIO_config.h>
 
 
 

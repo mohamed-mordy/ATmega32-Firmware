@@ -5,9 +5,9 @@
  *      Author: Mohamed
  */
 
-#include "Std_Types.h"
-
-#include "Port.h"
+#include <Std_Types.h>
+#include <Port_interface.h>
+#include <Port_config.h> /* Include order is mandatory here */
 #include "Port_private.h"
 #include "Port_register.h"
 

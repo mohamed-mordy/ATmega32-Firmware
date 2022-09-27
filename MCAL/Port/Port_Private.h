@@ -8,13 +8,6 @@
 #ifndef PORT_PRIVATE_H_
 #define PORT_PRIVATE_H_
 
-#define INPUT    0
-#define OUTPUT   1
-
-#define LOW      0
-#define HIGH     1
-
-#include "Port_config.h"
 
 /*____________________________________________________________________________________________________*/
 #define PORT_DIR(pin7, pin6, pin5, pin4, pin3, pin2, pin1, pin0)          0b##pin7##pin6##pin5##pin4##pin3##pin2##pin1##pin0

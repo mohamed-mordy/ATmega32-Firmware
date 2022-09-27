@@ -47,7 +47,5 @@ u8 DIO_getPortValue(u8 u8_portID);
 
 
 
-
-
-
 #endif /* DIO_INTERFACE_H_ */
+

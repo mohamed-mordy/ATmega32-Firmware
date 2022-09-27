@@ -5,15 +5,15 @@
  *      Author: Mohamed
  */
 
+#include <Std_Types.h>
 #include <util/delay.h>
 
-#include "Std_Types.h"
 
-#include "DIO_interface.h"
+#include <DIO_interface.h>
+#include <LCD_interface.h>
 
-#include "LCD_interface.h"
 #include "LCD_private.h"
-#include "LCD_config.h"
+#include <LCD_config.h>
 
 
 /* Preprocessor Directives. */

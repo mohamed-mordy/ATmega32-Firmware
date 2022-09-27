@@ -3,6 +3,12 @@
 #define __PORT_H__
 
 
+#define INPUT    0
+#define OUTPUT   1
+
+#define LOW      0
+#define HIGH     1
+
 void Port_Init(const Port_ConfigType *ConfigPtr);
 
 void Port_SetPinDirection(Port_PinType pin, Port_PinDirectionType direction);
