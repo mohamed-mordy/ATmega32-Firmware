@@ -1,8 +1,12 @@
-/*
- * LCD_private.h
- *
- *  Created on: Sep 4, 2022
- *      Author: Mohamed
+/********************************************************************
+ * @Title       : Liquid Crystal Display (LCD)
+ * @Filename    : LCD_private.h
+ * @Author      : Mohamed Abdelmordy
+ * @Origin Date : Oct 12, 2022
+ * @Version     : 1.0.0
+ * @Compiler    : avr-gcc
+ * @Target      : ATmega32A
+ * @Notes       : None
  */
 
 #ifndef LCD_PRIVATE_H_

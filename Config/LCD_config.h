@@ -1,8 +1,12 @@
-/*
- * LCD_config.h
- *
- *  Created on: Sep 4, 2022
- *      Author: Mohamed
+/********************************************************************
+ * @Title       : Liquid Crystal Display (LCD)
+ * @Filename    : LCD_config.c
+ * @Author      : Mohamed Abdelmordy
+ * @Origin Date : Oct 12, 2022
+ * @Version     : 1.0.0
+ * @Compiler    : avr-gcc
+ * @Target      : ATmega32A
+ * @Notes       : None
  */
 
 #ifndef LCD_CONFIG_H_
@@ -10,32 +14,31 @@
 
 /**
  * LCD Mode configurations
+ *  MODE_4_BIT
+ *  MODE_8_BIT
  */
-#define lcd_MODE_4_BIT       0
-#define lcd_MODE_8_BIT       1
+#define LCD_MODE_SELECT  MODE_8_BIT
 
 
 /**
- * LCD CTRL and DATA PORT configurations
+ * LCD DATA Pins configurations
+ * The Data Port is written in an atomic operation in 8-bit mode.
+ * Data pins are considered only in 4-bit mode.
  */
-#define LCD_CTRL_PORT    DIO_PORTA
 #define LCD_DATA_PORT    DIO_PORTB
 
-
-/**
- * LCD CTRL and DATA configurations
- */
-#define LCD_CTRL_DDR     DIO_DDRA
-#define LCD_DATA_DDR     DIO_DDRB
-
+#define LCD_DATA_PIN_7   DIO_PIN4
+#define LCD_DATA_PIN_6   DIO_PIN2
+#define LCD_DATA_PIN_5   DIO_PIN1
+#define LCD_DATA_PIN_4   DIO_PIN0
 
 /**
  * LCD CTRL pins configurations
  */
-#define LCD_RS_PIN           0
-#define LCD_RW_PIN           1
-#define LCD_E_PIN            2
+#define LCD_CTRL_PORT        DIO_PORTA
 
+#define LCD_CTRL_RS          DIO_PIN0
+#define LCD_CTRL_EN          DIO_PIN1
 
 #endif /* LCD_CONFIG_H_ */
 
