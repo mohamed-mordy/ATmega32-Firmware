@@ -9,9 +9,12 @@
  * @Notes       : None
  */
 
-#ifndef GIE_PRIVATE_H_
-#define GIE_PRIVATE_H_
+#ifndef GIE_INTERFACE_H_
+#define GIE_INTERFACE_H_
 
-#define SREG (*(volatile u8 *) 0x5f)
 
-#endif /* GIE_PRIVATE_H_ */
+void GIE_vEnable(void);
+void GIE_vDisable(void);
+
+
+#endif /* GIE_INTERFACE_H_ */
