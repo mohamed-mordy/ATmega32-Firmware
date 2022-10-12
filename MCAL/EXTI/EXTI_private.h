@@ -1,8 +1,12 @@
-/*
- * EXTI_private.h
- *
- *  Created on: Sep 21, 2022
- *      Author: Mohamed
+/********************************************************************
+ * @Title       : External Interrupts (EXTI)
+ * @Filename    : EXTI_private.h
+ * @Author      : Mohamed Abdelmordy
+ * @Origin Date : Sep 21, 2022
+ * @Version     : 1.0.0
+ * @Compiler    : avr-gcc
+ * @Target      : ATmega32A
+ * @Notes       : None
  */
 
 #ifndef EXTI_PRIVATE_H_
@@ -26,7 +30,7 @@
 #define   GICR_INT1         7
 #define   GICR_INT2         5
 
-#define   EXTI_ENABLE       1
-#define   EXTI_DISABLE      0
+#define   ENABLED           1
+#define   DISABLED          0
 
 #endif /* EXTI_PRIVATE_H_ */

@@ -1,8 +1,12 @@
-/*
- * EXTI_config.h
- *
- *  Created on: Sep 21, 2022
- *      Author: Mohamed
+/********************************************************************
+ * @Title       : External Interrupts (EXTI)
+ * @Filename    : EXTI_config.c
+ * @Author      : Mohamed Abdelmordy
+ * @Origin Date : Sep 21, 2022
+ * @Version     : 1.0.0
+ * @Compiler    : avr-gcc
+ * @Target      : ATmega32A
+ * @Notes       : None
  */
 
 #ifndef EXTI_CONFIG_H_
@@ -18,18 +22,19 @@
  * Note:
  * INT2 is only edge triggered interrupt
  */
-#define EXTI_TRIGGER_MODE_INT0       LOW_LEVEL
+#define EXTI_TRIGGER_MODE_INT0       FALLING_EDGE
 #define EXTI_TRIGGER_MODE_INT1       RISING_EDGE
 #define EXTI_TRIGGER_MODE_INT2       RISING_EDGE
 
 
 /**
  * Select one of the following:
- *      EXTI_ENABLE
- *      EXTI_DISABLE
+ *      ENABLED
+ *      DISABLED
  */
-#define EXTI_ENABLE_INT0            EXTI_ENABLE
-#define EXTI_ENABLE_INT1            EXTI_DISABLE
-#define EXTI_ENABLE_INT2            EXTI_DISABLE
+#define EXTI_ENABLE_INT0            ENABLED
+#define EXTI_ENABLE_INT1            DISABLED
+#define EXTI_ENABLE_INT2            DISABLED
 
 #endif /* EXTI_CONFIG_H_ */
+

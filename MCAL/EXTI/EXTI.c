@@ -1,22 +1,51 @@
-/*
- * EXTI_program.c
- *
- *  Created on: Sep 21, 2022
- *      Author: Mohamed
+/********************************************************************
+ * @Title       : External Interrupts (EXTI)
+ * @Filename    : EXTI.c
+ * @Author      : Mohamed Abdelmordy
+ * @Origin Date : Sep 21, 2022
+ * @Version     : 1.0.0
+ * @Compiler    : avr-gcc
+ * @Target      : ATmega32A
+ * @Notes       : None
  */
 
-#include <Bit_Math.h>
+/**
+ * @addtogroup MCU_Drivers
+ * @{
+ */
+
 #include <Std_Types.h>
-#include <DIO_interface.h>
-#include <EXTI_interface.h>
-#include "EXTI_private.h"
+#include <Bit_Math.h>
+#include <DIO.h>
+#include <EXTI.h>
+#include <EXTI_private.h>
 #include <EXTI_config.h>
 
+typedef void (*VID_VID_FPTR_TYPE)(void);
+static VID_VID_FPTR_TYPE G_EXTI_Callback[3]; /* Only three External Interrupts. */
 
-static void (*G_EXTI0_Callback)(void);
-static void (*G_EXTI1_Callback)(void);
-static void (*G_EXTI2_Callback)(void);
-
+/********************************************************************
+ * Function: void EXTI_vInit(void)
+ */
+/**
+ * \b Description:
+ *
+ * Initializes the EXTI Driver.
+ *
+ * @param [in] void
+ * @return     void
+ *
+ * \b Example:
+ *
+ * @code
+ * EXTI_vInit();
+ * @endcode
+ *
+ * @see EXTI_vSetSenseCtrl()
+ * @see EXTI_vEnableInterrupt()
+ * @see EXTI_vDisableInterrupt()
+ * @see EXTI_vRegisterCallback()
+ */
 void EXTI_vInit(void)
 {
 	/* 1. make pins input */
@@ -84,34 +113,43 @@ void EXTI_vInit(void)
     /* INT0 */
     #if EXTI_ENABLE_INT0 == EXTI_ENABLE
         SET_BIT(GICR, GICR_INT0);
-    #elif EXTI_ENABLE_INT0 == EXTI_DISABLE
-        CLEAR_BIT(GICR, GICR_INT0);
-    #else
-        #error "EXTI_ENABLE_INT0 is not configured properly"
     #endif
 
     /* INT1 */
     #if EXTI_ENABLE_INT1 == EXTI_ENABLE
         SET_BIT(GICR, GICR_INT1);
-    #elif EXTI_ENABLE_INT1 == EXTI_DISABLE
-        CLEAR_BIT(GICR, GICR_INT1);
-    #else
-        #error "EXTI_ENABLE_INT1 is not configured properly"
     #endif
 
     /* INT2 */
     #if EXTI_ENABLE_INT2 == EXTI_ENABLE
         SET_BIT(GICR, GICR_INT2);
-    #elif EXTI_ENABLE_INT2 == EXTI_DISABLE
-        CLEAR_BIT(GICR, GICR_INT2);
-    #else
-        #error "EXTI_ENABLE_INT2 is not configured properly"
     #endif
 }
 
-void EXTI_vSetSenseCtrl(u8 u8_ExtiPin, u8 u8_SenseCtrl)
+/********************************************************************
+ * Function: void EXTI_vSetSenseCtrl(EXTI_t exti, u8 u8_SenseCtrl)
+ */
+/**
+ * \b Description:
+ *
+ * Sets the sense Control of the EXTI.
+ *
+ * @param [in] exti The type of External Interrupt to set its sense control.
+ * @param [in] u8_SenseCtrl The Sense Control to be set.
+ * @return     void
+ *
+ * \b Example:
+ *
+ * @code
+ * EXTI_vSetSenseCtrl(EXTI_0, RISING_EDGE);
+ * @endcode
+ *
+ * @see EXTI_vEnableInterrupt()
+ * @see EXTI_vDisableInterrupt()
+ */
+void EXTI_vSetSenseCtrl(EXTI_t exti, u8 u8_SenseCtrl)
 {
-	switch (u8_ExtiPin) {
+	switch (exti) {
 		case EXTI_0:
 			switch (u8_SenseCtrl) {
                 case LOW_LEVEL:
@@ -135,7 +173,6 @@ void EXTI_vSetSenseCtrl(u8 u8_ExtiPin, u8 u8_SenseCtrl)
                     break;
 			}
 			break;
-
 		case EXTI_1:
 			switch (u8_SenseCtrl) {
                 case LOW_LEVEL:
@@ -159,7 +196,6 @@ void EXTI_vSetSenseCtrl(u8 u8_ExtiPin, u8 u8_SenseCtrl)
                     break;
 			}
 			break;
-
 		case EXTI_2:
 			switch (u8_SenseCtrl) {
                 case FALLING_EDGE:
@@ -179,9 +215,28 @@ void EXTI_vSetSenseCtrl(u8 u8_ExtiPin, u8 u8_SenseCtrl)
 	}
 }
 
-void EXTI_vEnableInterrupt(u8 u8_ExtiPin, u8 u8_SenseCtrl)
+/********************************************************************
+ * Function: void EXTI_vEnableInterrupt(EXTI_t exti)
+ */
+/**
+ * \b Description:
+ *
+ * Enables the interrupt for the provided External Interrupt.
+ *
+ * @param [in] exti The External Interrupt to be enabled.
+ * @return     void
+ *
+ * \b Example:
+ *
+ * @code
+ * EXTI_vEnableInterrupt(EXTI_0);
+ * @endcode
+ *
+ * @see EXTI_vDisableInterrupt()
+ */
+void EXTI_vEnableInterrupt(EXTI_t exti)
 {
-	switch (u8_ExtiPin) {
+	switch (exti) {
         case EXTI_0:
             SET_BIT(GICR, GICR_INT0);
             break;
@@ -197,9 +252,28 @@ void EXTI_vEnableInterrupt(u8 u8_ExtiPin, u8 u8_SenseCtrl)
 	}
 }
 
-void EXTI_vDisableInterrupt(u8 u8_ExtiPin)
+/********************************************************************
+ * Function: void EXTI_vDisableInterrupt(EXTI_t exti)
+ */
+/**
+ * \b Description:
+ *
+ * Disables The External Interrupts for the provided Interrupt type.
+ *
+ * @param [in] exti The External Interrupt to be disabled.
+ * @return     void
+ *
+ * \b Example:
+ *
+ * @code
+ * EXTI_vDisableInterrupt(EXTI_1);
+ * @endcode
+ *
+ * @see EXTI_vEnableInterrupt();
+ */
+void EXTI_vDisableInterrupt(EXTI_t exti)
 {
-	switch (u8_ExtiPin) {
+	switch (exti) {
         case EXTI_0:
             CLEAR_BIT(GICR, GICR_INT0);
             break;
@@ -215,52 +289,100 @@ void EXTI_vDisableInterrupt(u8 u8_ExtiPin)
 	}
 }
 
-void EXTI_vRegisterCallback(u8 u8_ExtiPin, void (*fptr)(void))
+/********************************************************************
+ * Function: void EXTI_vRegisterCallback(EXTI_t exti, void (*fptr)(void))
+ */
+/**
+ * \b Description:
+ *
+ * Registers a callback function for each External Interrupt.
+ *
+ * @param [in] exti The External Interrupt to register a callback for it.
+ * @param [in] fptr The callback function.
+ * @return     void
+ *
+ * \b Example:
+ *
+ * @code
+ * void do_action(void);
+ * void do_action(void)
+ * {
+ *     // Do some actions here based on External Interrupt.
+ * }
+ * EXTI_vRegisterCallback(EXTI_1, do_action);
+ * @endcode
+ *
+ * @see EXTI_vSetSenseCtrl()
+ * @see EXTI_vEnableInterrupt()
+ * @see EXTI_vDisableInterrupt()
+ */
+void EXTI_vRegisterCallback(EXTI_t exti, void (*fptr)(void))
 {
-	switch (u8_ExtiPin) {
-		case EXTI_0:
-			G_EXTI0_Callback = fptr;
-			break;
-		case EXTI_1:
-			G_EXTI1_Callback = fptr;
-			break;
-		case EXTI_2:
-			G_EXTI2_Callback = fptr;
-			break;
-		default:
-			/*Error*/
-			break;
-	}
+    G_EXTI_Callback[exti] = fptr;
 }
 
-#if EXTI_ENABLE_INT0 == EXTI_ENABLE
-    void __vector_1(void)__attribute__((signal));
-    void __vector_1(void)
-    {
-        if (G_EXTI0_Callback) {
-            G_EXTI0_Callback();
-        }
+/********************************************************************
+ * Function: void __vector_1(void)
+ */
+/**
+ * \b Description:
+ *
+ * The ISR corresponding to External Interrups 0
+ *
+ * @param [in] void
+ * @return     void
+ *
+ */
+void __vector_1(void) __attribute__((signal));
+void __vector_1(void)
+{
+    DIO_setPinValue(DIO_PORTA, DIO_PIN2, DIO_HIGH);
+    if (G_EXTI_Callback[EXTI_0]) {
+        G_EXTI_Callback[EXTI_0]();
     }
-#endif
+}
 
-#if EXTI_ENABLE_INT1 == EXTI_ENABLE
-    void __vector_2(void)__attribute__((signal));
-    void __vector_2(void)
-    {
-        if (G_EXTI1_Callback) {
-            G_EXTI1_Callback();
-        }
+/********************************************************************
+ * Function: void __vector_2(void)
+ */
+/**
+ * \b Description:
+ *
+ * The ISR corresponding to External Interrups 1
+ *
+ * @param [in] void
+ * @return     void
+ *
+ */
+void __vector_2(void)__attribute__((signal));
+void __vector_2(void)
+{
+    if (G_EXTI_Callback[EXTI_1]) {
+        G_EXTI_Callback[EXTI_1]();
     }
-#endif
+}
 
-#if EXTI_ENABLE_INT2 == EXTI_ENABLE
-    void __vector_3(void)__attribute__((signal));
-    void __vector_3(void)
-    {
-        if (G_EXTI2_Callback) {
-            G_EXTI2_Callback();
-        }
+/********************************************************************
+ * Function: void __vector_3(void)
+ */
+/**
+ * \b Description:
+ *
+ * The ISR corresponding to External Interrups 2
+ *
+ * @param [in] void
+ * @return     void
+ *
+ */
+void __vector_3(void)__attribute__((signal));
+void __vector_3(void)
+{
+    if (G_EXTI_Callback[EXTI_2]) {
+        G_EXTI_Callback[EXTI_2]();
     }
-#endif
+}
 
+/**
+ * @}
+ */
 
