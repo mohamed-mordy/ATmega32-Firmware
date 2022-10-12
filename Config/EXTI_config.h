@@ -23,7 +23,7 @@
  * INT2 is only edge triggered interrupt
  */
 #define EXTI_TRIGGER_MODE_INT0       FALLING_EDGE
-#define EXTI_TRIGGER_MODE_INT1       RISING_EDGE
+#define EXTI_TRIGGER_MODE_INT1       LOW_LEVEL
 #define EXTI_TRIGGER_MODE_INT2       RISING_EDGE
 
 

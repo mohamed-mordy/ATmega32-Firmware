@@ -49,17 +49,17 @@ static VID_VID_FPTR_TYPE G_EXTI_Callback[3]; /* Only three External Interrupts. 
 void EXTI_vInit(void)
 {
 	/* 1. make pins input */
-    #if EXTI_ENABLE_INT0 == EXTI_ENABLE
+    #if EXTI_ENABLE_INT0 == ENABLED
         DIO_setPinDirection(DIO_PORTD, DIO_PIN2, DIO_INPUT);  // should be input
         DIO_setPinValue(DIO_PORTD, DIO_PIN2, DIO_HIGH); // set pull-up
     #endif
 
-    #if EXTI_ENABLE_INT1 == EXTI_ENABLE
+    #if EXTI_ENABLE_INT1 == ENABLED
         DIO_setPinDirection(DIO_PORTD, DIO_PIN3, DIO_INPUT);
         DIO_setPinValue(DIO_PORTD, DIO_PIN2, DIO_HIGH); // set pull-up
     #endif
 
-    #if EXTI_ENABLE_INT2 == EXTI_ENABLE
+    #if EXTI_ENABLE_INT2 == ENABLED
         DIO_setPinDirection(DIO_PORTB, DIO_PIN2, DIO_INPUT);
         DIO_setPinValue(DIO_PORTB, DIO_PIN2, DIO_HIGH); // set pull-up
     #endif
@@ -111,17 +111,17 @@ void EXTI_vInit(void)
 
 	/* 3. enable interrupt */
     /* INT0 */
-    #if EXTI_ENABLE_INT0 == EXTI_ENABLE
+    #if EXTI_ENABLE_INT0 == ENABLED
         SET_BIT(GICR, GICR_INT0);
     #endif
 
     /* INT1 */
-    #if EXTI_ENABLE_INT1 == EXTI_ENABLE
+    #if EXTI_ENABLE_INT1 == ENABLED
         SET_BIT(GICR, GICR_INT1);
     #endif
 
     /* INT2 */
-    #if EXTI_ENABLE_INT2 == EXTI_ENABLE
+    #if EXTI_ENABLE_INT2 == ENABLED
         SET_BIT(GICR, GICR_INT2);
     #endif
 }
@@ -336,7 +336,6 @@ void EXTI_vRegisterCallback(EXTI_t exti, void (*fptr)(void))
 void __vector_1(void) __attribute__((signal));
 void __vector_1(void)
 {
-    DIO_setPinValue(DIO_PORTA, DIO_PIN2, DIO_HIGH);
     if (G_EXTI_Callback[EXTI_0]) {
         G_EXTI_Callback[EXTI_0]();
     }
