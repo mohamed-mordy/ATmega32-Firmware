@@ -1,3 +1,14 @@
+/********************************************************************
+ * @Title       : Port Driver
+ * @Filename    : Port_config.h
+ * @Author      : Mohamed Abdelmordy
+ * @Origin Date : Sep 5, 2022
+ * @Version     : 1.0.0
+ * @Compiler    : avr-gcc
+ * @Target      : ATmega32A
+ * @Notes       : None
+ */
+
 
 #ifndef __PORT_CFG_H__
 #define __PORT_CFG_H__
@@ -74,7 +85,6 @@
 #define PORTD_PIN5_INIT_VAL     LOW
 #define PORTD_PIN6_INIT_VAL     LOW
 #define PORTD_PIN7_INIT_VAL     LOW
-
  
 #endif  /* __PORT_CFG_H__ */
 
