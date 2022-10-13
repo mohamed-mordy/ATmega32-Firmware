@@ -4,6 +4,7 @@
 * [DIO Driver](https://github.com/mohamed-mordy/ATmega32-Firmware/tree/main/MCAL/DIO)
 * [GIE Driver](https://github.com/mohamed-mordy/ATmega32-Firmware/tree/main/MCAL/GIE)
 * [EXTI Driver](https://github.com/mohamed-mordy/ATmega32-Firmware/tree/main/MCAL/EXTI)
+* [Watchdog Timer Driver](https://github.com/mohamed-mordy/ATmega32-Firmware/tree/main/MCAL/WDT)
 ## Implemented SWCs in HAL:
 * [KEYPAD Driver](https://github.com/mohamed-mordy/ATmega32-Firmware/tree/main/HAL/Keypad)
 * [LCD Driver](https://github.com/mohamed-mordy/ATmega32-Firmware/tree/main/HAL/LCD)
