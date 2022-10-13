@@ -1,12 +1,16 @@
-/*
- * Keypad_config.h
- *
- *  Created on: Sep 5, 2022
- *      Author: Mohamed
+/********************************************************************
+ * @Title       : Keypad
+ * @Filename    : Keypad_config.h
+ * @Author      : Mohamed Abdelmordy
+ * @Origin Date : Sep 5, 2022
+ * @Version     : 1.0.0
+ * @Compiler    : avr-gcc
+ * @Target      : ATmega32A
+ * @Notes       : None
  */
 
-#ifndef KEYPAD_CFG_H_
-#define KEYPAD_CFG_H_
+#ifndef KEYPAD_CONFIG_H_
+#define KEYPAD_CONFIG_H_
 
 #define KEYPAD_NO_PRESSED_KEY         0xff
 
@@ -32,5 +36,5 @@
 #define KEYPAD_ROW_3_PORT       DIO_PORTC
 #define KEYPAD_ROW_4_PORT       DIO_PORTC
 
-#endif /* KEYPAD_CFG_H_ */
+#endif /* KEYPAD_CONFIG_H_ */
 

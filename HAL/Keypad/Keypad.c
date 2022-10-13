@@ -1,18 +1,20 @@
-/*
- * Keypad.c
- *
- *  Created on: Sep 5, 2022
- *      Author: Mohamed
+/********************************************************************
+ * @Title       : Keypad
+ * @Filename    : Keypad.c
+ * @Author      : Mohamed Abdelmordy
+ * @Origin Date : Sep 5, 2022
+ * @Version     : 1.0.0
+ * @Compiler    : avr-gcc
+ * @Target      : ATmega32A
+ * @Notes       : None
  */
-
 
 #include <Std_Types.h>
 
-#include <DIO_interface.h>
-#include <Keypad_interface.h>
-#include "Keypad_private.h"
+#include <DIO.h>
+#include <Keypad.h>
+#include <Keypad_private.h>
 #include <Keypad_config.h>
-
 
 /* Array to store the return value foreach pressed key. */
 const static u8 Keypad_Arr[NUMBER_OF_COLUMNS][NUMBER_OF_ROWS] = KEYPAD_ARR_VAL;

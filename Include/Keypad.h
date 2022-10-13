@@ -1,6 +1,6 @@
 /********************************************************************
  * @Title       : Keypad
- * @Filename    : Keypad_private.h
+ * @Filename    : keypad.h
  * @Author      : Mohamed Abdelmordy
  * @Origin Date : Sep 5, 2022
  * @Version     : 1.0.0
@@ -9,12 +9,9 @@
  * @Notes       : None
  */
 
-#ifndef KEYPAD_PRIVATE_H_
-#define KEYPAD_PRIVATE_H_
+#ifndef KEYPAD_H_
+#define KEYPAD_H_
 
-#define NUMBER_OF_COLUMNS        4
-#define NUMBER_OF_ROWS           4
+u8 Keypad_getPressedKey(void);
 
-
-#endif /* KEYPAD_PRIVATE_H_ */
-
+#endif /* KEYPAD_H_ */
