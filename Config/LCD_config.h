@@ -38,7 +38,8 @@
 #define LCD_CTRL_PORT        DIO_PORTA
 
 #define LCD_CTRL_RS          DIO_PIN0
-#define LCD_CTRL_EN          DIO_PIN1
+#define LCD_CTRL_RW          DIO_PIN1
+#define LCD_CTRL_EN          DIO_PIN2
 
 #endif /* LCD_CONFIG_H_ */
 

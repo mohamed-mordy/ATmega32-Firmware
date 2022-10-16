@@ -46,44 +46,41 @@
  */
 void LCD_vInit(void)
 {
-	_delay_ms(30);
+    _delay_ms(30);
     #if LCD_MODE_SELECT == MODE_4_BIT
+        /* Initiaize data pins. */
         DIO_setPinDirection(LCD_DATA_PORT, LCD_DATA_PIN_7, DIO_OUTPUT);
         DIO_setPinDirection(LCD_DATA_PORT, LCD_DATA_PIN_6, DIO_OUTPUT);
         DIO_setPinDirection(LCD_DATA_PORT, LCD_DATA_PIN_5, DIO_OUTPUT);
         DIO_setPinDirection(LCD_DATA_PORT, LCD_DATA_PIN_4, DIO_OUTPUT);
-
+        /* Initiaize ctrl pins. */
         DIO_setPinDirection(LCD_CTRL_PORT, LCD_CTRL_RS   , DIO_OUTPUT);
         DIO_setPinDirection(LCD_CTRL_PORT, LCD_CTRL_EN   , DIO_OUTPUT);
 
-		LCD_vSendCmd(0x02);
-		LCD_vSendCmd(0x28);
-		_delay_ms(1);
-		LCD_vSendCmd(0x0c);
-		_delay_ms(1);
-		LCD_vSendCmd(0x06);
-		_delay_ms(1);
-		LCD_vSendCmd(0x80);
-		_delay_ms(1);
-		LCD_vSendCmd(0x01);	/*LCD clear*/
-		_delay_ms(1);
+        LCD_vSendCmd(0x02); /* 4-bi5 Initialization. */
+        LCD_vSendCmd(0x28); /* 2-lines, 5*7 font size, 4-bi5 mode. */
+        LCD_vSendCmd(0x0c); /* Display ON, cursor OFF. */
+        LCD_vSendCmd(0x06); /* Auto incremnt cursor to right. */
+        LCD_vSendCmd(0x01); /* LCD clear. */
     #elif LCD_MODE_SELECT == MODE_8_BIT
+        /* Initiaize data pins. */
         DIO_setPortDirection(LCD_DATA_PORT, 0XFF); /* Set Port Output. */
+        /* Initiaize ctrl pins. */
         DIO_setPinDirection(LCD_CTRL_PORT, LCD_CTRL_RS, DIO_OUTPUT);
         DIO_setPinDirection(LCD_CTRL_PORT, LCD_CTRL_EN, DIO_OUTPUT);
-        /* Function set: 2-Lines, 5*8 font size */
+
+        /* Function set: 2-Lines, 5*8 font size, 8-bit mode */
         LCD_vSendCmd(0X38);
-
-        /* Display on/off control: Display enable, disable cursor, no-blink cursor */
+        /* Display ON, cursor OFF. */
         LCD_vSendCmd(0X0C);
-
-        /* Display clear */
+        /* Auto incremnt cursor to right. */
+        LCD_vSendCmd(0X06);
+        /* Display clear. */
         LCD_vSendCmd(0X01);
-
-        /* Entry Mode Set */
-        //LCD_vSendCmd(0X06);
+        /* Cursor at home position. */
+        LCD_vSendCmd(0X80);
     #else
-        #error  "LCD_MODE_SELECT is not configured properly"
+        #error  "LCD_MODE_SELECT is not configured "
     #endif
 }
 
@@ -119,8 +116,9 @@ void LCD_vSendCmd(u8 u8Cmd)
         DIO_setPinValue(LCD_DATA_PORT, LCD_DATA_PIN_4, (u8Cmd>>4)&1);
         
         DIO_setPinValue(LCD_CTRL_PORT, LCD_CTRL_EN, DIO_HIGH);/* set EN */
-        _delay_ms(2);
+        _delay_us(1);
         DIO_setPinValue(LCD_CTRL_PORT, LCD_CTRL_EN, DIO_LOW);/* clear EN */
+        _delay_us(200);
 
         /* put data on LCD pins(low nibble). */
         DIO_setPinValue(LCD_DATA_PORT, LCD_DATA_PIN_7, (u8Cmd>>3)&1);
@@ -129,18 +127,20 @@ void LCD_vSendCmd(u8 u8Cmd)
         DIO_setPinValue(LCD_DATA_PORT, LCD_DATA_PIN_4, (u8Cmd>>0)&1);
         
         DIO_setPinValue(LCD_CTRL_PORT, LCD_CTRL_EN, DIO_HIGH);/* set EN */
-        _delay_ms(2);
+        _delay_us(1);
         DIO_setPinValue(LCD_CTRL_PORT, LCD_CTRL_EN, DIO_LOW);/* clear EN */
+        _delay_ms(2);
     #elif LCD_MODE_SELECT == MODE_8_BIT
         DIO_setPinValue(LCD_CTRL_PORT, LCD_CTRL_RS, DIO_LOW);/* select RS -> 0: Command register */
 
         DIO_setPortValue(LCD_DATA_PORT, u8Cmd);/* put data on LCD pins. */
         
         DIO_setPinValue(LCD_CTRL_PORT, LCD_CTRL_EN, DIO_HIGH);/* set EN */
-        _delay_ms(2);
+        _delay_us(1);
         DIO_setPinValue(LCD_CTRL_PORT, LCD_CTRL_EN, DIO_LOW);/* clear EN */
+        _delay_ms(2);
     #else
-        #error  "LCD_MODE_SELECT is not configured properly"
+        #error  "LCD_MODE_SELECT is not configured "
     #endif
 }
 
@@ -176,8 +176,9 @@ void LCD_vSendChar(u8 u8Character)
         DIO_setPinValue(LCD_DATA_PORT, LCD_DATA_PIN_4, (u8Character>>4)&1);
         
         DIO_setPinValue(LCD_CTRL_PORT, LCD_CTRL_EN, DIO_HIGH);/* set EN */
-        _delay_ms(2);
+        _delay_us(1);
         DIO_setPinValue(LCD_CTRL_PORT, LCD_CTRL_EN, DIO_LOW);/* clear EN */
+        _delay_us(200);
 
         /* put data on LCD pins. */
         DIO_setPinValue(LCD_DATA_PORT, LCD_DATA_PIN_7, (u8Character>>3)&1);
@@ -186,20 +187,21 @@ void LCD_vSendChar(u8 u8Character)
         DIO_setPinValue(LCD_DATA_PORT, LCD_DATA_PIN_4, (u8Character>>0)&1);
 
         DIO_setPinValue(LCD_CTRL_PORT, LCD_CTRL_EN, DIO_HIGH);/* set EN */
-        _delay_ms(2);
+        _delay_us(1);
         DIO_setPinValue(LCD_CTRL_PORT, LCD_CTRL_EN, DIO_LOW);/* clear EN */
+        _delay_ms(2);
 
     #elif LCD_MODE_SELECT == MODE_8_BIT
-        /* select RS -> 1: Data register */
-        DIO_setPinValue(LCD_CTRL_PORT, LCD_CTRL_RS, DIO_HIGH);
+        DIO_setPinValue(LCD_CTRL_PORT, LCD_CTRL_RS, DIO_HIGH); /* select RS -> 1: Data register */
 
-        DIO_setPortValue(LCD_DATA_PORT, u8Character);/* put data on LCD pins. */
+        DIO_setPortValue(LCD_DATA_PORT, u8Character); /* put data on LCD pins. */
 
-        DIO_setPinValue(LCD_CTRL_PORT, LCD_CTRL_EN, DIO_HIGH);/* set EN */
+        DIO_setPinValue(LCD_CTRL_PORT, LCD_CTRL_EN, DIO_HIGH); /* set EN */
+        _delay_us(1);
+        DIO_setPinValue(LCD_CTRL_PORT, LCD_CTRL_EN, DIO_LOW); /* clear EN */
         _delay_ms(2);
-        DIO_setPinValue(LCD_CTRL_PORT, LCD_CTRL_EN, DIO_LOW);/* clear EN */
     #else
-        #error  "LCD_MODE_SELECT is not configured properly"
+        #error  "LCD_MODE_SELECT is not configured"
     #endif
 }
 
@@ -413,7 +415,7 @@ void LCD_vSaveCustomCharacter(u8 *pu8Arr, u8 u8BlockNumber)
  */
 void LCD_vWriteCustomeCharacter(u8 u8CharID)
 {
-	LCD_vSendChar(u8CharID); /* Display the pattern written in the CGRAM */
+    LCD_vSendChar(u8CharID); /* Display the pattern written in the CGRAM */
 }
 
 /********************************************************************
@@ -437,32 +439,32 @@ void LCD_vWriteCustomeCharacter(u8 u8CharID)
  */
 void LCD_vWriteNumber(s32 s32Number)
 {
-	s32 reversed = 0;
-	s32 zero_right_flag = 0;
-	if (s32Number < 0) {
-		LCD_vSendChar('-');
-		s32Number *= -1;
-	}
-	if (s32Number == 0) {
-		LCD_vSendChar('0');
-	} else {
-		if (s32Number % 10 == 0) {
-			s32Number += 1;
-			zero_right_flag = 1;
-		}
-		while (s32Number > 0) {
-			reversed = reversed * 10 + s32Number % 10;
-			s32Number /= 10;
-		}
-		while (reversed > 0) {
-			if (reversed == 1 && zero_right_flag == 1) {
-				reversed = 0;
-				//continue;
-			}
-			LCD_vSendChar(reversed % 10 + 48);
-			reversed /= 10;
-		}
-	}
+    s32 reversed = 0;
+    s32 zero_right_flag = 0;
+    if (s32Number < 0) {
+        LCD_vSendChar('-');
+        s32Number *= -1;
+    }
+    if (s32Number == 0) {
+        LCD_vSendChar('0');
+    } else {
+        if (s32Number % 10 == 0) {
+            s32Number += 1;
+            zero_right_flag = 1;
+        }
+        while (s32Number > 0) {
+            reversed = reversed * 10 + s32Number % 10;
+            s32Number /= 10;
+        }
+        while (reversed > 0) {
+            if (reversed == 1 && zero_right_flag == 1) {
+                reversed = 0;
+                //continue;
+            }
+            LCD_vSendChar(reversed % 10 + 48);
+            reversed /= 10;
+        }
+    }
 }
 
 /**
